@@ -5,8 +5,8 @@ from collections import Counter
 import codecs
 import chardet
 
-f = open("nigger.txt","w",encoding='utf-8')
-DATA_FILE = "E:\\dog\\brian williams_processed.json"
+f = open(".txt","w",encoding='utf-8')
+DATA_FILE = ".json"
 # Build a JSON array
 data = "[{0}]".format(",".join([l for l in open(DATA_FILE,encoding='utf-8').readlines()]))
 
