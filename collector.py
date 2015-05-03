@@ -4,6 +4,8 @@ import twitter
 import os
 import re
 
+
+#twitter api keys
 CONSUMER_KEY = ""
 CONSUMER_SECRET = ""
 ACCESS_TOKEN_KEY = ""
@@ -13,6 +15,8 @@ print("Enter Search Terms (may be delimited with commas")
 QUERY = input()
 search_terms = QUERY.split(',')
 search_term_map = {}
+
+#hashmaps. each search term is given its own json file
 for search_term in search_terms:
     stm = {
         'input_fp': ".".join([search_term, 'json']),
@@ -32,7 +36,7 @@ def ke(x):
 
 
 
-
+#initialize twitter handler
 auth = twitter.oauth.OAuth(ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET, CONSUMER_KEY, CONSUMER_SECRET)
 twitter_stream = twitter.TwitterStream(auth=auth)
 
@@ -52,7 +56,10 @@ for tweet in stream:
 	for k, value in search_term_map.items() :
 		if re.search(k,ke(data),re.IGNORECASE) is not None:
 			try:
-				fh = os.open(search_term_map[k]['output_fp'],os.O_CREAT|os.O_APPEND|os.O_BINARY|os.O_RDWR)#####open file
+				######NOTE: this is a windows C hack that bypasses the hard drive's cache so it is constantly writing to disk
+				######for example: 3TB WD drives with a 64mb cache 
+				fh = os.open(search_term_map[k]['output_fp'],os.O_CREAT|os.O_APPEND|os.O_BINARY|os.O_RDWR)
+				
 				
 				#ID UNIQUE KEY IF ANY
 				try:
@@ -132,6 +139,9 @@ for tweet in stream:
 				os.write(fh,bytes(u'{0}\n'.format(json.dumps(filtered, ensure_ascii=False)),'utf-8',errors='ignore'))
 				os.fsync(fh)
 				print(nn + tweet['user']['screen_name']  + "	" +    str(tweet['text'][:130].encode('utf-8').decode('ascii', 'ignore')), flush=True)
+                                
+                                
+                                ####these controls will break the program after ~2000 registered tweets that have been captured by the program
 			except:
 				continue
 		else:
