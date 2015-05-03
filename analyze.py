@@ -6,7 +6,7 @@ import codecs
 import chardet
 
 f = open(".txt","w",encoding='utf-8')
-DATA_FILE = ".json"
+DATA_FILE = "GamerGate_processed.json"
 # Build a JSON array
 data = "[{0}]".format(",".join([l for l in open(DATA_FILE,encoding='utf-8').readlines()]))
 
@@ -63,6 +63,7 @@ def group_by_15_min_intervals(x):
         elif 15 < x.minute <= 30: return (x.hour, "16-30")
         elif 30 < x.minute <= 45: return (x.hour, "31-45")
         else: return (x.hour, "46-00")
+
 def minuteHistogram():
         grouped = df.groupby(lambda x: group_by_15_min_intervals(x))
         print("Number of relevant tweets by intervals (UTC)")

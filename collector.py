@@ -6,11 +6,16 @@ import re
 
 
 #twitter api keys
+
 CONSUMER_KEY = ""
 CONSUMER_SECRET = ""
 ACCESS_TOKEN_KEY = ""
 ACCESS_TOKEN_SECRET = ""
 
+
+
+
+####IMPORTANT: you can up to 10 search terms BUT ONLY 3 concurrent instances
 print("Enter Search Terms (may be delimited with commas")
 QUERY = input()
 search_terms = QUERY.split(',')
