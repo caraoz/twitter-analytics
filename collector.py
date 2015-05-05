@@ -15,12 +15,24 @@ ACCESS_TOKEN_SECRET = ""
 
 
 
+
+
 ####IMPORTANT: you can up to 10 search terms BUT ONLY 3 concurrent instances
 print("Enter Search Terms (may be delimited with commas")
 QUERY = input()
-search_terms = QUERY.split(',')
-search_term_map = {}
+if '#' in QUERY:
+    QUERY.replace("#","")
+else:
+    pass
 
+search_terms = QUERY.split(',')
+
+if "#" in search_terms:
+    search_terms.replace("#","")
+else:
+    pass
+search_term_map = {}
+os.chdir("terms/")
 #hashmaps. each search term is given its own json file
 for search_term in search_terms:
     stm = {
