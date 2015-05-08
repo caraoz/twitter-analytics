@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 import io
 import json
 import twitter
 import os
 import re
-
+#####script uses --twitter--
 
 #twitter api keys
 
